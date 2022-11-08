@@ -1,0 +1,24 @@
+{% extends 'layout.html' %}
+{%  load static %}
+
+{% block content %}
+    <section>
+        <div class="section_main">
+            <div class="row">
+                <section class="eight columns">
+                    {% for new in news %}
+                        <article class="blog_post">
+                            <div class="three columns">
+                                <a href="{% url 'show' new.id %}" class="th"><img src="{{ MEDIA_URL }}{{ new.image.url }}" alt="desc"/></a>
+                            </div>
+                            <div class="nine columns">
+                                <a href="{% url 'show' new.id %}"><h4>{{ new.title }}</h4></a>
+                                <p>{{ new.first_sentence }}</p>
+                            </div>
+                        </article>
+                    {% endfor %}
+                </section>
+            </div>
+        </div>
+    </section>
+{% endblock %}

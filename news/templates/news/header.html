@@ -1,0 +1,12 @@
+<nav>
+    <div class="twelve columns header_nav">
+        <div class="row">
+            <ul id="menu-header" class="nav-bar horizontal">
+                <li><a href="{% url 'index' %}">Главная</a></li>
+                {% for rubric in rubrics %}
+                    <li {% if rubric_id == rubric.id %}class="menu-header_selected" {% endif %}><a href="{% url 'rubric' rubric.id %}">{{ rubric}}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</nav>

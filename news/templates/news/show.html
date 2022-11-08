@@ -1,0 +1,30 @@
+{% extends 'layout.html' %}
+{%  load static %}
+
+{% block content %}
+<header>
+    <div class="row">
+        <h4>{{ rubric_name }}</h4>
+        <article>
+            <div class="twelve columns">
+                <h1>{{ new.title }}</h1>
+                <p class="excerpt">
+                    {{ new.keywords }}
+                </p>
+            </div>
+        </article>
+    </div>
+</header>
+
+<section class="section_light">
+    <div class="row">
+        <p>
+            {% if new.image %}
+                <img src="{{ MEDIA_URL }}{{ new.image.url }}" alt="desc" width=400 align=left hspace=30>
+            {% endif %}
+            {{ new.annotation }}
+        </p>
+    </div>
+</section>
+
+{% endblock %}
