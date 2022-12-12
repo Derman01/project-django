@@ -1,4 +1,6 @@
 {% load static %}
+{% load news_tags %}
+
 <!DOCTYPE html>
 <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en">
 <html class="no-js lt-ie9 lt-ie8" lang="en">
@@ -19,7 +21,7 @@
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 </head>
 <body>
-    {% include 'news/header.html' %}
+    {% show_rubrics rubric_id %}
 
     {% block content %}{% endblock %}
 

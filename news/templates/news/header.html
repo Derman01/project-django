@@ -2,11 +2,31 @@
     <div class="twelve columns header_nav">
         <div class="row">
             <ul id="menu-header" class="nav-bar horizontal">
-                <li><a href="{% url 'index' %}">Главная</a></li>
+                <li><a class="{% if not rubric_id %}menu-header_selected{% endif %}"
+                       href="{% url 'index' %}">Главная</a></li>
                 {% for rubric in rubrics %}
-                    <li {% if rubric_id == rubric.id %}class="menu-header_selected" {% endif %}><a href="{% url 'rubric' rubric.id %}">{{ rubric}}</a></li>
+                    <li><a class="{% if rubric_id == rubric.id %}menu-header_selected{% endif %}"
+                           href="{% url 'rubric' rubric.id %}">{{ rubric }}</a></li>
                 {% endfor %}
             </ul>
         </div>
+        <select class="add-button" style="position: absolute; width:100px; top: 30px; right:0">
+            <option disabled selected value="">Добавить</option>
+            <option add-link="{% url 'rubric_add' %}">Рубрику</option>
+            <option add-link="{% url 'hashtag_add' %}">Хэштег</option>
+            <option add-link="{% url 'article_add' %}">Статью</option>
+        </select>
     </div>
 </nav>
+
+<script>
+    const addButton = document.querySelector('.add-button');
+    addButton.addEventListener('change', ({target}) => {
+        const selectedIndex = target.options.selectedIndex;
+        const selectedOption = target.options[selectedIndex];
+        const link = selectedOption.attributes['add-link'].value;
+        if (link) {
+            window.location.href = window.location.origin + link;
+        }
+    });
+</script>

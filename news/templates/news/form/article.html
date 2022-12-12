@@ -1,0 +1,21 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<header>
+  <div class="row">
+    <h1>Добавление Статьи</h1>
+  </div>
+</header>
+
+<div class="row" style="margin-top: 50px">
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div style="max-width: 300px">
+      {{ form.as_p }}
+    </div>
+    <button type="submit">Добавить</button>
+  </form>
+</div>
+
+{% endblock %}

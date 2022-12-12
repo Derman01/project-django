@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Article, Rubric, Hashtag
+from .models import Article, Rubric, Hashtag, Image
 
 
 class ArticleAdmin(admin.ModelAdmin):
@@ -13,3 +13,4 @@ class RubricAdmin(admin.ModelAdmin):
 admin.site.register(Article, ArticleAdmin)
 admin.site.register(Rubric, RubricAdmin)
 admin.site.register(Hashtag)
+admin.site.register(Image)

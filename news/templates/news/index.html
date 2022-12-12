@@ -9,10 +9,16 @@
                     {% for new in news %}
                         <article class="blog_post">
                             <div class="three columns">
-                                <a href="{% url 'show' new.id %}" class="th"><img src="{{ MEDIA_URL }}{{ new.image.url }}" alt="desc"/></a>
+                                <a href="{% url 'article' new.id %}" class="th">
+<!--                                    {% if new.image %}-->
+                                        <img src="{{ MEDIA_URL }}{{ new.image.url }}" alt="desc"/>
+<!--                                    {% else %}-->
+<!--                                        <img src="{{ MEDIA_URL }}/media/images/empty.jpg" alt="desc"/>-->
+<!--                                    {% endif %}-->
+                                </a>
                             </div>
                             <div class="nine columns">
-                                <a href="{% url 'show' new.id %}"><h4>{{ new.title }}</h4></a>
+                                <a href="{% url 'article' new.id %}"><h4>{{ new.title }}</h4></a>
                                 <p>{{ new.first_sentence }}</p>
                             </div>
                         </article>

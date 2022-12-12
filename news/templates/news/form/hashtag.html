@@ -1,0 +1,21 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<header>
+  <div class="row">
+    <h1>Добавление Хэштега</h1>
+  </div>
+</header>
+
+<div class="row" style="margin-top: 50px">
+  <form action="{% url 'hashtag_add' %}"  method="POST">
+    {% csrf_token %}
+    <div style="width: 300px">
+      {{ form }}
+    </div>
+    <button type="submit">Добавить</button>
+  </form>
+</div>
+
+{% endblock %}

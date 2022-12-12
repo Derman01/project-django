@@ -1,10 +1,10 @@
 {% extends 'layout.html' %}
-{%  load static %}
+{% load static %}
 
 {% block content %}
 <header>
     <div class="row">
-        <h4>{{ rubric_name }}</h4>
+        <h4>{{ new.rubric.name }}</h4>
         <article>
             <div class="twelve columns">
                 <h1>{{ new.title }}</h1>
@@ -24,6 +24,13 @@
             {% endif %}
             {{ new.annotation }}
         </p>
+    </div>
+    <div class="row mt-2">
+        <div class="hashtags">
+            {% for tag in new.Hashtags.all %}
+                <a href="{% url 'hashtag' tag.id %}">#{{tag.name}}</a>
+            {% endfor %}
+        </div>
     </div>
 </section>
 

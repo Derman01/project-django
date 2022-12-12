@@ -8,6 +8,7 @@ class Article(models.Model):
     annotation = models.TextField(verbose_name='Аннотация')
     image = models.ImageField(null=True, blank=True, upload_to='images/', verbose_name='Изображение', default='images/empty.jpg')
     rubric = models.ForeignKey('Rubric', on_delete=models.CASCADE, null=True)
+    Hashtags = models.ManyToManyField('Hashtag', blank=True, related_name='articles')
 
     def first_sentence(self):
         return self.annotation.split('.')[0]
@@ -39,7 +40,6 @@ class Rubric(models.Model):
 
 class Hashtag(models.Model):
     name = models.CharField(max_length=100)
-    articles = models.ManyToManyField(Article)
 
     def __str__(self):
         return self.name
@@ -47,3 +47,11 @@ class Hashtag(models.Model):
     class Meta:
         verbose_name = 'Хэштег'
         verbose_name_plural = 'Хэштеги'
+
+
+class Image(models.Model):
+    title = models.CharField(max_length=200)
+    image = models.ImageField(upload_to='users/%Y/%m/%d/', blank=True)
+
+    def __str__(self):
+        return self.title
