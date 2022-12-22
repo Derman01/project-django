@@ -10,23 +10,13 @@
                 {% endfor %}
             </ul>
         </div>
-        <select class="add-button" style="position: absolute; width:100px; top: 30px; right:0">
-            <option disabled selected value="">Добавить</option>
-            <option add-link="{% url 'rubric_add' %}">Рубрику</option>
-            <option add-link="{% url 'hashtag_add' %}">Хэштег</option>
-            <option add-link="{% url 'article_add' %}">Статью</option>
-        </select>
+        <div style="position: absolute; width:100px; top: 00px; right:0">
+            {% if request.user.is_authenticated %}
+                <h4>{{ request.user.get_username }}</h4>
+                <a href="{% url 'logout' %}?next={{ request.path }}">Выйти</a>
+            {% else %}
+                <a href="{% url 'login' %}">Войти</a>
+            {% endif %}
+        </div>
     </div>
 </nav>
-
-<script>
-    const addButton = document.querySelector('.add-button');
-    addButton.addEventListener('change', ({target}) => {
-        const selectedIndex = target.options.selectedIndex;
-        const selectedOption = target.options[selectedIndex];
-        const link = selectedOption.attributes['add-link'].value;
-        if (link) {
-            window.location.href = window.location.origin + link;
-        }
-    });
-</script>

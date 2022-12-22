@@ -17,13 +17,41 @@
 </header>
 
 <section class="section_light">
-    <div class="row">
+    <div class="row" style="display: grid; grid-auto-flow: column;">
         <p>
             {% if new.image %}
                 <img src="{{ MEDIA_URL }}{{ new.image.url }}" alt="desc" width=400 align=left hspace=30>
             {% endif %}
             {{ new.annotation }}
         </p>
+        {% if user.is_authenticated %}
+            <section class="columns">
+                <H3> &nbsp; </H3>
+                <div class="panel">
+                    <h3>Панель создания</h3>
+                    <ul class="accordion">
+                        <li class="active">
+                            <div class="title">
+                                <a href="{% url 'article_add' %}"><h5>Добавить статью</h5></a>
+                            </div>
+                        </li>
+                        {% if user.is_superuser %}
+                            <li class="active">
+                                <div class="title">
+                                    <a href="{% url 'rubric_add' %}"><h5>Добавить рубрику</h5></a>
+                                </div>
+                            </li>
+                            <li class="active">
+                                <div class="title">
+                                    <a href="{% url 'hashtag_add' %}"><h5>Добавить hashtag</h5></a>
+                                </div>
+                            </li>
+                        {% endif %}
+                    </ul>
+
+                </div>
+            </section>
+        {% endif %}
     </div>
     <div class="row mt-2">
         <div class="hashtags">

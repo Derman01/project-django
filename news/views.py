@@ -1,6 +1,19 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Article, Rubric, Hashtag
 from .forms import Rubric as Rubric_form, Hashtag as Hashtag_form, ArticleForm, ImageForm
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import redirect
+
+
+def superuser_required(function):
+
+    @login_required
+    def function_return(request):
+        if request.user.is_superuser:
+            return function(request)
+        else:
+            return redirect('index')
+    return function_return
 
 
 def index(request):
@@ -24,6 +37,7 @@ def hash_tag(request, id):
     return render(request, 'news/index.html', {'news': articles})
 
 
+@superuser_required
 def add_rubric(request):
     if request.method == 'POST':
         form = Rubric_form(request.POST)
@@ -37,7 +51,7 @@ def add_rubric(request):
         form = Rubric_form()
     return render(request, 'news/form/rubric.html', {'form': form})
 
-
+@superuser_required
 def add_hashtag(request):
     if request.method == 'POST':
         form = Hashtag_form(request.POST)
@@ -51,7 +65,7 @@ def add_hashtag(request):
         form = Hashtag_form()
         return render(request, 'news/form/hashtag.html', {'form': form})
 
-
+@login_required
 def add_article(request):
     if request.method == 'POST':
         form = ArticleForm(request.POST, request.FILES)
@@ -64,17 +78,3 @@ def add_article(request):
     else:
         form = ArticleForm()
         return render(request, 'news/form/article.html', {'form': form})
-
-
-def image_upload_view(request):
-    """Process images uploaded by users"""
-    if request.method == 'POST':
-        form = ImageForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            # Get the current instance object to display in the template
-            img_obj = form.instance
-            return render(request, 'news/form/image.html', {'form': form, 'img_obj': img_obj})
-    else:
-        form = ImageForm()
-    return render(request, 'news/form/image.html', {'form': form})
